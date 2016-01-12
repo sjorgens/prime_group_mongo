@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Mongo Group Assignments Assignment</title>
+    <link rel="stylesheet" href="assets/styles/main.css">
+    <script src="vendor/angular/angular.min.js"></script>
+    <script src="assets/scripts/app.min.js"></script>
+</head>
+<body ng-controller="mainController">
+<div class="container">
+    <h1>Assignments</h1>
+    <ul>
+        <li ng-repeat="assignment in assignments">
+            {{assignment.assignment_number}}, {{assignment.student_name}}, {{assignment.score}}, {{assignment.date_completed | date:'shortDate'}} <button ng-click="updateMode(assignment['_id'])">Update Assignment</button><button ng-click="deleteAssignment(assignment['_id'])">Delete Assignment</button>
+        </li>
+    </ul>
+    <form ng-show="update">
+        <h2>UPDATING</h2>
+        Assignment Number: <input type="number" ng-model="assignment.assignment_number"/>
+        Student Name: <input type="text" ng-model="assignment.student_name"/>
+        Score: <input type="number" ng-model="assignment.score"/>
+        Date Completed: <input type="datetime" ng-model="assignment.date_completed"/>
+        <input type="submit" ng-click="updateAssignment(assignment)" value="Update Assignment"/>
+    </form>
+    <form ng-hide="update">
+        Assignment Number: <input type="number" ng-model="assignment.assignment_number"/>
+        Student Name: <input type="text" ng-model="assignment.student_name"/>
+        Score: <input type="number" ng-model="assignment.score"/>
+        Date Completed: <input type="datetime" ng-model="assignment.date_completed" placeholder="MM-DD-YYYY"/>
+        <input type="submit" ng-click="addAssignment(assignment)" value="Save Assignment"/>
+    </form>
+</div>
+</body>
+</html>
