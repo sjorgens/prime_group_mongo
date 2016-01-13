@@ -10,31 +10,29 @@
 <body ng-controller="mainController">
 <div class="container">
     <h1>Assignments</h1>
-    <ul>
-        <li ng-repeat="assignment in assignments" ng-class="beingUpdated(assignment['_id'])">
-            {{assignment.assignment_number}},
-            {{assignment.student_name}},
-            {{assignment.score}},
-            {{assignment.date_completed | date:'shortDate'}}
-            <button ng-click="updateMode(assignment['_id'])">Update Assignment</button>
-            <button ng-click="deleteAssignment(assignment['_id'])">Delete Assignment</button>
-        </li>
+
+    <ul ng-repeat="assignment in assignments" ng-class="beingUpdated(assignment['_id'])">
+        <li>{{assignment.assignment_number}}</li>
+        <li>{{assignment.student_name}}</li>
+        <li>{{assignment.score}}</li>
+        <li>{{assignment.date_completed | date:'shortDate'}}</li>
+        <li><button ng-click="updateMode(assignment['_id'])">Update</button></li>
+        <li><button ng-click="deleteAssignment(assignment['_id'])">Delete</button></li>
     </ul>
-    <form ng-show="update">
-        <h2>UPDATING</h2>
-        Assignment Number: <input type="number" ng-model="assignment.assignment_number"/>
-        Student Name: <input type="text" ng-model="assignment.student_name"/>
-        Score: <input type="number" ng-model="assignment.score"/>
-        Date Completed: <input type="datetime" ng-model="assignment.date_completed"/>
-        <input type="submit" ng-click="updateAssignment(assignment)" value="Update Assignment"/>
-    </form>
-    <form ng-hide="update">
+
+
+    <h2 ng-show="update">UPDATING</h2>
+
+    <form>
         Assignment Number: <input type="number" ng-model="assignment.assignment_number"/>
         Student Name: <input type="text" ng-model="assignment.student_name"/>
         Score: <input type="number" ng-model="assignment.score"/>
         Date Completed: <input type="datetime" ng-model="assignment.date_completed" placeholder="MM-DD-YYYY"/>
-        <input type="submit" ng-click="addAssignment(assignment)" value="Save Assignment"/>
+        <input type="submit" ng-click="addAssignment(assignment)" value="Save Assignment" ng-hide="update"/>
+        <input type="submit" ng-click="updateAssignment(assignment)" value="Update Assignment" ng-show="update"/>
     </form>
+
 </div>
+
 </body>
 </html>
