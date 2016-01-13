@@ -2,4 +2,4 @@
 
 As performed by Scott, Joe, Eric & Zach
 
-Meets Pro mode funcionality--sort of!
+Meets Pro mode funcionality!
