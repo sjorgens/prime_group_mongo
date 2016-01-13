@@ -19,31 +19,27 @@ app.controller("mainController", ['$scope', '$http', function($scope, $http){
     };
 
     $scope.addAssignment = function(assignment){
-        $scope.assignment = {};
         $http.post('/createAssignment', assignment).then(fetchAssignments());
         $scope.assignment = {};
-        return;
     };
 
     $scope.deleteAssignment = function(id) {
         $scope.update = false;
         $http.delete('/deleteAssignment/' + id).then(fetchAssignments());
         $scope.assignment = {};
-        return;
     };
 
     $scope.updateAssignment = function(assignment){
         $scope.update = false;
         $http.put('/updateAssignment', assignment).then(function(response){
             if(response.status !== 200){
-                throw new Error('Where dem assignmnets, yo?');
+                throw new Error('Where dem assignments, yo?');
             }
             $scope.assignment = {};
             $scope.assignments = response.data;
             console.log("Got some assignments for ya guv");
             return response.data;
         });
-        return;
     };
 
     $scope.updateMode = function(id) {

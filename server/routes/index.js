@@ -41,17 +41,17 @@ router.post('/createAssignment', function(request, response){
 });
 
 router.put('/updateAssignment', function(request, response){
-    Assignment.findById(request.body.id, function(err, assignment){
+    Assignment.findById(request.body.id, function(err, assignmentToUpdate){
         if(err){
             console.log(err);
         }
 
-        assignment.assignment_number = request.body.assignment_number;
-        assignment.student_name = request.body.student_name;
-        assignment.score = request.body.score;
-        assignment.date_completed = request.body.date_completed;
+        assignmentToUpdate.assignment_number = request.body.assignment_number;
+        assignmentToUpdate.student_name = request.body.student_name;
+        assignmentToUpdate.score = request.body.score;
+        assignmentToUpdate.date_completed = request.body.date_completed;
 
-        assignment.save(function(err){
+        assignmentToUpdate.save(function(err){
             if (err) {
                 console.log(err);
             } else {

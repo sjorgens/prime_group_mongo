@@ -11,6 +11,13 @@
 <div class="container">
     <h1>Assignments</h1>
 
+    <ul>
+        <li>Assignment#</li>
+        <li>Student</li>
+        <li>Score</li>
+        <li>Date Completed</li>
+    </ul>
+
     <ul ng-repeat="assignment in assignments" ng-class="beingUpdated(assignment['_id'])">
         <li>{{assignment.assignment_number}}</li>
         <li>{{assignment.student_name}}</li>
