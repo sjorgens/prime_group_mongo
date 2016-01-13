@@ -55,8 +55,17 @@ router.put('/updateAssignment', function(request, response){
             if (err) {
                 console.log(err);
             } else {
-                response.sendStatus(200);
+                console.log('Hooray updated');
             }
+        }).then(function() {
+            Assignment.find({}, function (err, assignments) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    response.send(assignments);
+                }
+            });
+
         });
 
     });

@@ -10,3 +10,6 @@ input {
     display: inline-block;
 }
 
+.beingUpdated {
+    color: red;
+}

@@ -3,6 +3,8 @@ var app = angular.module('myApp', []);
 app.controller("mainController", ['$scope', '$http', function($scope, $http){
     $scope.assignment = {};
     $scope.assignments = [];
+
+    //Let's us know if we are in 'update mode'
     $scope.update = false;
 
     var fetchAssignments = function() {
@@ -10,24 +12,38 @@ app.controller("mainController", ['$scope', '$http', function($scope, $http){
             if(response.status !== 200){
                 throw new Error('Where dem assignmnets, yo?');
             }
-            $scope.assignment = {};
             $scope.assignments = response.data;
-            //console.log($scope.assignments[0]["_id"]);
+            console.log("Got some assignments for ya guv");
             return response.data;
         })
     };
 
     $scope.addAssignment = function(assignment){
-        return $http.post('/createAssignment', assignment).then(fetchAssignments());
+        $scope.assignment = {};
+        $http.post('/createAssignment', assignment).then(fetchAssignments());
+        $scope.assignment = {};
+        return;
     };
 
     $scope.deleteAssignment = function(id) {
-        return $http.delete('/deleteAssignment/' + id).then(fetchAssignments());
+        $scope.update = false;
+        $http.delete('/deleteAssignment/' + id).then(fetchAssignments());
+        $scope.assignment = {};
+        return;
     };
 
     $scope.updateAssignment = function(assignment){
         $scope.update = false;
-        return $http.put('/updateAssignment', assignment).then(fetchAssignments());
+        $http.put('/updateAssignment', assignment).then(function(response){
+            if(response.status !== 200){
+                throw new Error('Where dem assignmnets, yo?');
+            }
+            $scope.assignment = {};
+            $scope.assignments = response.data;
+            console.log("Got some assignments for ya guv");
+            return response.data;
+        });
+        return;
     };
 
     $scope.updateMode = function(id) {
@@ -37,19 +53,26 @@ app.controller("mainController", ['$scope', '$http', function($scope, $http){
                 throw new Error('Where dem assignmnets, yo?');
             }
             $scope.assignment = {};
-            $scope.assignments = response.data;
+            $scope.assignment = response.data[0];
 
             $scope.assignment.id = id;
-            $scope.assignment.assignment_number = $scope.assignments[0].assignment_number;
-            $scope.assignment.student_name = $scope.assignments[0].student_name;
-            $scope.assignment.score = $scope.assignments[0].score;
-            $scope.assignment.date_completed = $scope.assignments[0].date_completed;
+
 
             return response.data;
         });
     };
 
+    $scope.beingUpdated = function(id) {
+        if ($scope.assignment.id == id) {
+            return 'beingUpdated';
+        } else {
+            return '';
+        }
+    };
+
+
     fetchAssignments();
+    setInterval(fetchAssignments, 5000);
 
 }]);
 
