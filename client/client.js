@@ -13,7 +13,7 @@ app.controller("mainController", ['$scope', '$http', function($scope, $http){
                 throw new Error('Where dem assignmnets, yo?');
             }
             $scope.assignments = response.data;
-            console.log("Got some assignments for ya guv");
+            //console.log("Got some assignments for ya guv");
             return response.data;
         })
     };
@@ -37,7 +37,7 @@ app.controller("mainController", ['$scope', '$http', function($scope, $http){
             }
             $scope.assignment = {};
             $scope.assignments = response.data;
-            console.log("Got some assignments for ya guv");
+            //console.log("Got some assignments for ya guv");
             return response.data;
         });
     };
